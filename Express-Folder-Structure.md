@@ -76,7 +76,26 @@ project-root/
 ├── package.json                # Project info + dependencies list
 └── server.js                   # Entry point — starts the app
 ```
+---
+# Create a New Express Application with folder structure
 
+
+```
+npm i -g express-generator      # Install Express Generator globally.
+express myFirstApp              # Create a new Express application named "myFirstApp".
+cd myFirstApp                   # Enter the project folder.
+npm install                     # Install all dependencies listed in package.json.
+npm start                       # Start the Express application.
+```
+```
+npm i express-generator
+# Local installation.
+# Use: npx express-generator
+
+npm i -g express-generator
+# Global installation.
+# Use: express
+```
 ---
 
 ## 📁 What Each Folder Actually Does
