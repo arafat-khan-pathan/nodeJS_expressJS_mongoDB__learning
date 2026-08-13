@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Teachers</title>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+
+    <%- include('partial/nav') %>
+
+
+    <div class="container">
+
+        <% if (success) { %>
+
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+
+        <% } %>
+
+
+        <% if (error) { %>
+
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+
+        <% } %>
+
+
+        <h2>Teacher Registration</h2>
+
+
+        <form action="/teachers/save" method="POST">
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Teacher Name"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                type="text"
+                name="department"
+                placeholder="Department"
+                required
+            >
+
+            <button type="submit">
+                Save Teacher
+            </button>
+
+        </form>
+
+
+        <h2>Teacher List</h2>
+
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Action</th>
+            </tr>
+
+
+            <% teachers.forEach(function(t) { %>
+
+                <tr>
+
+                    <td>
+                        <%= t.id %>
+                    </td>
+
+                    <td>
+                        <%= t.name %>
+                    </td>
+
+                    <td>
+                        <%= t.email %>
+                    </td>
+
+                    <td>
+                        <%= t.department %>
+                    </td>
+
+                    <td>
+
+                        <form
+                            class="inline"
+                            action="/teachers/delete/<%= t.id %>"
+                            method="POST"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn-danger"
+                                onclick="return confirm('Delete this teacher?');"
+                            >
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+            <% }); %>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

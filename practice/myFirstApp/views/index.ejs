@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <%- include('partial/nav') %>
+        <div class="container">
+            <h2>Student Management System</h2>
+            <p>
+                A complete system with Students, Teachers, Courses,
+                and Enrollments backed by a relational database.
+            </p>
+            <div class="dashboard-grid">
+                <a class="dashboard-card" href="/students">
+                    <h3>Students</h3>
+                    <p>Register and manage student records.</p>
+                </a>
+                <a class="dashboard-card" href="/teachers">
+                    <h3>Teachers</h3>
+                    <p>
+                        Manage teaching staff and departments.
+                    </p>
+                </a>
+                <a class="dashboard-card" href="/courses">
+                    <h3>Courses</h3>
+                    <p>
+                        Create courses and assign a teacher to each.
+                    </p>
+                </a>
+                <a class="dashboard-card" href="/enrollments">
+                    <h3>Enrollments</h3>
+                    <p>
+                        Enroll students into courses and record grades.
+                    </p>
+                </a>
+            </div>
+            <p style="margin-top:25px;">
+                REST API base paths:
+                <code>/api/students</code>,
+                <code>/api/teachers</code>,
+                <code>/api/courses</code>,
+                <code>/api/enrollments</code>.
+                H2 console:
+                <code>/h2-console</code>
+            </p>
+        </div>
+</body>
+</html>

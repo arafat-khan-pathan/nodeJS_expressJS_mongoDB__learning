@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Enrollments</title>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+
+    <%- include('partial/nav') %>
+
+
+    <div class="container">
+
+        <% if (success) { %>
+
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+
+        <% } %>
+
+
+        <% if (error) { %>
+
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+
+        <% } %>
+
+
+        <h2>Enroll Student in Course</h2>
+
+
+        <form action="/enrollments/save" method="POST">
+
+            <select name="studentId" required>
+
+                <option value="" disabled selected>
+                    -- Select Student --
+                </option>
+
+
+                <% students.forEach(function(s) { %>
+
+                    <option value="<%= s.id %>">
+                        <%= s.name %> (<%= s.email %>)
+                    </option>
+
+                <% }); %>
+
+            </select>
+
+
+            <select name="courseId" required>
+
+                <option value="" disabled selected>
+                    -- Select Course --
+                </option>
+
+
+                <% courses.forEach(function(c) { %>
+
+                    <option value="<%= c.id %>">
+                        <%= c.title %>
+                    </option>
+
+                <% }); %>
+
+            </select>
+
+
+            <button type="submit">
+                Enroll
+            </button>
+
+        </form>
+
+<h2>Enrollment List</h2>
+
+<table>
+
+    <tr>
+        <th>ID</th>
+        <th>Student</th>
+        <th>Course</th>
+        <th>Date</th>
+        <th>Grade</th>
+        <th>Action</th>
+    </tr>
+
+
+    <% enrollments.forEach(function(e) { %>
+
+        <tr>
+
+            <td>
+                <%= e.student_id %>
+            </td>
+
+            <td>
+                <%= e.student_name %>
+            </td>
+
+            <td>
+                <%= e.course_title %>
+            </td>
+
+            <td style="white-space: nowrap;">
+
+                <%= new Date(e.enrollment_date).toLocaleString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                }).replace(/\//g, '.').replace(', ', ' ') %>
+
+            </td>
+
+            <td>
+                <%= e.grade || '-' %>
+            </td>
+
+            <td>
+
+                <!-- Set Grade -->
+
+                <form
+                    class="inline"
+                    action="/enrollments/grade/<%= e.id %>"
+                    method="POST"
+                >
+
+                    <input
+                        type="text"
+                        name="grade"
+                        placeholder="Grade"
+                    >
+
+                    <button type="submit">
+                        Set
+                    </button>
+
+                </form>
+
+
+                <!-- Delete Enrollment -->
+
+                <form
+                    class="inline"
+                    action="/enrollments/delete/<%= e.id %>"
+                    method="POST"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn-danger"
+                        onclick="return confirm('Remove this enrollment?');"
+                    >
+                        Delete
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+    <% }); %>
+
+</table>
+
+    </div>
+
+</body>
+
+</html>

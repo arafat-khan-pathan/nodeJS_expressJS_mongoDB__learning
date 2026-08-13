@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Courses</title>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+
+    <%- include('partial/nav') %>
+
+
+    <div class="container">
+
+        <% if (success) { %>
+
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+
+        <% } %>
+
+
+        <% if (error) { %>
+
+            <div class="alert alert-error">
+                <%= error %>
+            </div>
+
+        <% } %>
+
+
+        <h2>Create Course</h2>
+
+
+        <form action="/courses/save" method="POST">
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Course Title"
+                required
+            >
+
+
+            <input
+                type="number"
+                name="credits"
+                placeholder="Credits"
+                min="1"
+                required
+            >
+
+
+            <select name="teacherId" required>
+
+                <option value="" disabled selected>
+                    -- Assign Teacher --
+                </option>
+
+
+                <% teachers.forEach(function(t) { %>
+
+                    <option value="<%= t.id %>">
+                        <%= t.name %> (<%= t.department %>)
+                    </option>
+
+                <% }); %>
+
+            </select>
+
+
+            <button type="submit">
+                Save Course
+            </button>
+
+        </form>
+
+
+        <h2>Course List</h2>
+
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Credits</th>
+                <th>Teacher</th>
+                <th>Action</th>
+            </tr>
+
+
+            <% courses.forEach(function(c) { %>
+
+                <tr>
+
+                    <td>
+                        <%= c.id %>
+                    </td>
+
+                    <td>
+                        <%= c.title %>
+                    </td>
+
+                    <td>
+                        <%= c.credits %>
+                    </td>
+
+                    <td>
+                        <%= c.teacher != null ? c.teacher.name : 'Unassigned' %>
+                    </td>
+
+                    <td>
+
+                        <form
+                            class="inline"
+                            action="/courses/delete/<%= c.id %>"
+                            method="POST"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn-danger"
+                                onclick="return confirm('Delete this course?');"
+                            >
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+            <% }); %>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

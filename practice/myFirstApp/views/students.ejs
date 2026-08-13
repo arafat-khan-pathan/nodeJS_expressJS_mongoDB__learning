@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Students</title>
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+
+    <%- include('partial/nav') %>
+
+
+        <div class="container">
+
+            <% if (success) { %>
+
+                <div class="alert alert-success">
+                    <%= success %>
+                </div>
+
+                <% } %>
+
+
+                    <% if (error) { %>
+
+                        <div class="alert alert-error">
+                            <%= error %>
+                        </div>
+
+                        <% } %>
+
+
+                            <h2>Student Registration</h2>
+
+
+                            <form action="/students/save" method="POST">
+
+                                <input type="text" name="name" placeholder="Student Name" required>
+
+
+                                <input type="email" name="email" placeholder="Email" required>
+
+
+                                <input type="text" name="major" placeholder="Major">
+
+
+                                <button type="submit">
+                                    Save Student
+                                </button>
+
+                            </form>
+
+
+                            <h2>Student List</h2>
+
+
+                            <table>
+
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Major</th>
+                                    <th colspan="2">Action</th>
+                                </tr>
+
+
+                                <% students.forEach(function(s) { %>
+
+                                    <tr>
+
+                                        <td>
+                                            <%= s.id %>
+                                        </td>
+
+                                        <td>
+                                            <%= s.name %>
+                                        </td>
+
+                                        <td>
+                                            <%= s.email %>
+                                        </td>
+
+                                        <td>
+                                            <%= s.major %>
+                                        </td>
+
+                                        <td>
+
+                                            <form class="inline" action="/students/edit/<%= s.id %>" method="POST">
+
+                                                <button type="submit" class="btn-success"
+                                                    onclick="return confirm('Edit this student?');">
+                                                    Edit
+                                                </button>
+
+                                            </form>
+
+                                        </td>
+                                        <td>
+
+                                            <form class="inline" action="/students/delete/<%= s.id %>" method="POST">
+
+                                                <button type="submit" class="btn-danger"
+                                                    onclick="return confirm('Delete this student?');">
+                                                    Delete
+                                                </button>
+
+                                            </form>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <% }); %>
+
+                            </table>
+
+        </div>
+
+</body>
+
+</html>
